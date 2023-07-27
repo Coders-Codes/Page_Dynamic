@@ -10,10 +10,12 @@ function saveToNetwork(event)
         email,
         phoneno
     };
-    // const obj_stringify = JSON.stringify(obj)
-    // console.log(obj.stringify);
-    // Done apost reuest on axios url and sending the object which we have created
-    //and when I am successfull so creating a promise axios returns a promise if the promise is successfull it will show the new user on screen and if it fails I want to show the error
+
+    // Done a post request on axios url and sending the object which we have created
+    //and when I am successfull so creating a promise axios returns a promise if the
+    // promise is successfull it will show the new user on screen and if it fails I want to show the error
+
+
     axios.post("https://crudcrud.com/api/25f5a056001c4362ab75da209c8b4221/appointmentData" , obj)
     .then((response)=>{
         showUserOnScreen(response.data)
@@ -23,11 +25,20 @@ function saveToNetwork(event)
         document.body.innerHTML=document.body.innerHTML + "<h4> Something went Wrong!</h4>"
         console.log(err)
     })
-    // localStorage.setItem(obj.email, obj_stringify);
-//JSON.stringify -- Took the object and convert it into the string
-
-// showUserOnScreen(obj);
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    axios.get("https://crudcrud.com/api/25f5a056001c4362ab75da209c8b4221/appointmentData")
+    .then((response)=>{
+        console.log(response)
+        for(let i=0;i<response.data.length;i++){
+            showUserOnScreen(response.data[i])
+        }
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+})
 
 function showUserOnScreen(obj){
     const parentEle = document.getElementById('listofusers');
@@ -55,7 +66,6 @@ function showUserOnScreen(obj){
     childEle.appendChild(deleteButton);
     parentEle.appendChild(childEle);
 
-    
 }
 
 
